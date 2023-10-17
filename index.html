@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div id="app" class="container">
+        <h1>To-Do List</h1>
+
+        <!-- Input to add a new task -->
+        <input v-model="newTask" @keyup.enter="addTask" placeholder="Add a new task..." /> <br>
+
+        <!-- Number of incomplete tasks -->
+        <div class="task-count">{{ incompleteTasksCount }} tasks to do</div>
+
+
+
+        <!-- List of tasks -->
+        <ul>
+            <li v-for="(task, index) in tasks" :key="index">
+                <span :class="{ completed: task.completed }">{{ task.title }}</span>
+                <div>
+                    <button @click="editTask(index)">Edit</button> <br>
+                    <button @click="toggleCompletion(index)">
+                        {{ task.completed ? 'Not Completed' : 'Completed' }}
+                    </button><br >
+                    <button @click="deleteTask(index)">Delete</button>
+                    <br>
+                </div>
+            </li>
+        </ul>
+
+        
+        <!-- Edit Task Modal -->
+        <div v-if="editingTask !== null" class="modal">
+            <div class="modal-content">
+                <h2>Edit Task</h2>
+                <input v-model="editedTask.title" placeholder="Task Title" />
+                <button @click="saveTask">Save</button>
+                <button @click="cancelEdit">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.29"></script>
+    <script src="./main.js">
+        
+    </script>
+</body>
+
+</html>
